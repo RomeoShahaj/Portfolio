@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import Sidebar from "./components/Sidebar/Sidebar";
 import "./App.css";
 
 function App() {
@@ -7,9 +8,7 @@ function App() {
   const [activeItem, setActiveItem] = useState("home");
   const [isMobile, setIsMobile] = useState(false);
 
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [contentWidth, setContentWidth] = useState(0);
-
+  
   // Detect screen size
   useEffect(() => {
     const update = () => {
@@ -51,12 +50,7 @@ function App() {
     };
   }, []);
 
-  // Measure width of items for desktop collapsed width
-  useEffect(() => {
-    if (!isMobile && contentRef.current) {
-      setContentWidth(contentRef.current.offsetWidth);
-    }
-  }, [collapsed, isMobile]);
+  
 
   // Desktop only: auto collapse when scroll passes home
   useEffect(() => {
@@ -88,31 +82,24 @@ function App() {
     }
   };
 
-  const handleClick = (id: string) => {
+  const handleItemClick = (id: string) => {
     scrollToSection(id);
-    //setActiveItem(id);
+    setActiveItem(id);
   }
+
 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
-      {/* MOBILE HAMBURGER BUTTON */}
-      {isMobile && !mobileSidebarOpen && (
-        <button
-          onClick={() => setMobileSidebarOpen(true)}
-          style={{
-            position: "fixed",
-            right: "1rem",
-            left: "auto",
-            zIndex: 9999,
-            padding: "0.5rem 1rem",
-            fontSize: "1.5rem",
-            background: "transparent",
-            border: "none"
-          }}
-        >
-          ☰
-        </button>
-      )}
+      {/* Sidebar */}
+      <Sidebar 
+        collapsed={collapsed}
+        isMobile={isMobile}
+        mobileSidebarOpen={mobileSidebarOpen}
+        activeItem={activeItem}
+        onItemClick={handleItemClick}
+        toggleMobileSidebar={() => 
+        setMobileSidebarOpen(!mobileSidebarOpen)}
+        />
 
       {/* Main content */}
       <div
@@ -121,26 +108,37 @@ function App() {
           minWidth: 0,
           overflowY: "auto",
           padding: "2rem",
+          position: "relative"
         }}
       >
+        {isMobile && (
+          <button
+            className="hamburger"
+            onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+            aria-label={mobileSidebarOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileSidebarOpen}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+        )}
         <section
-  id="home"
-  style={{
-    height: "100vh",
-    paddingTop: "4rem",
-    textAlign: "left",        // ensures lines start at the same point
-    maxWidth: "600px",        // optional: keeps lines from stretching too wide
-    margin: "0 auto"          // centers the whole block while text stays left-aligned
-  }}
->
-  <h1>Hello, i'm <br /><span style={{ color: "#7132CA", fontWeight: "bold" }}>Romeo</span> Shahaj</h1>
-  <p>
-    I am a <span style={{ color: "#7132CA", fontWeight: "bold" }}>Software Developer</span> Passionate About Building Scalable Web Apps,
-    Databases & End-to-End Solutions.
-  </p>
-</section>
-
-
+          id="home"
+          style={{
+            height: "100vh",
+            paddingTop: "4rem",
+            textAlign: "left",        
+            maxWidth: "600px",        
+            margin: "0 auto"          
+          }}
+        >
+            <h1>Hello, i'm <br /><span style={{ color: "#7132CA", fontWeight: "bold" }}>Romeo</span> Shahaj</h1>
+            <p>
+              I am a <span style={{ color: "#7132CA", fontWeight: "bold" }}>Software Developer</span> Passionate About Building Scalable Web Apps,
+              Databases & End-to-End Solutions.
+            </p>
+          </section>
         <section id="about" style={{ height: "100vh", paddingTop: "4rem" }}>
           <h1>About me</h1>
         </section>
@@ -157,28 +155,7 @@ function App() {
           <h1>Contact</h1>
         </section>
       </div>
-
-      {/* SIDEBAR (desktop or mobile overlay) */}
-      <div
-         className={`sidebar ${isMobile ? "mobile" : "desktop"} ${
-          collapsed ? "collapsed" : "expanded"
-          } ${mobileSidebarOpen ? "open" : ""}`}
-      >
-
-        <div ref={contentRef} style={{ display: "inline-block", color:"white"}}>
-          {!collapsed && !isMobile && <h2>Where To?</h2>}
-
-          <ul className="sidebar-menu"
-          >
-            <li className={activeItem === "home" ? "active" : ""} onClick={() => handleClick("home")}>Home</li>
-            <li className={activeItem === "about" ? "active" : ""} onClick={() => handleClick("about")}>About</li>
-            <li className={activeItem === "skills" ? "active" : ""} onClick={() => handleClick("skills")}>Skills</li>
-            <li className={activeItem === "projects" ? "active" : ""} onClick={() => handleClick("projects")}>Projects</li>
-            <li className={activeItem === "contact" ? "active" : ""} onClick={() => handleClick("contact")}>Contact</li>
-          </ul>
-        </div>
       </div>
-    </div>
   );
 }
 
