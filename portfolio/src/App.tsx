@@ -78,12 +78,10 @@ function App() {
 
       {/* Main content */}
       <div style={{ flex: 1, minWidth: 0, overflowY: "auto", position: "relative" }}>
-        {/* Home and About are outside the regular Selection wrapper for full-width background */}
         <Selection id="home">
           <Home />
         </Selection>
 
-        {/* About: full-width wrapper outside sidebar-constrained container */}
         <About />
 
         <Selection id="skills">

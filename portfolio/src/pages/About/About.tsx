@@ -1,4 +1,4 @@
-import aboutBg from "../../assets/images/about-bg-01.jpg";
+//import aboutBg from "../../assets/images/about-bg-01.jpg";
 
 export default function About() {
   return (
@@ -12,21 +12,20 @@ export default function About() {
         margin: 0,
       }}
     >
-      {/* Background */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundImage: `url(${aboutBg})`,
-          backgroundSize: "cover",      // zoom image
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          zIndex: -1,
-        }}
-      />
+    {/* Background */}
+<div
+  style={{
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    background: "linear-gradient(to bottom, #7132CA 0%, rgba(79, 0, 128, 0) 100%)",
+    zIndex: -1,
+  }}
+/>
+
+
 
       {/* Content */}
       <div
