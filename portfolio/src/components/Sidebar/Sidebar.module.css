@@ -30,7 +30,6 @@
 
 .sidebar.desktop {
     position: fixed;
-    border-left: 1px solid #eee;
     right: 0;
     left: auto;
 }

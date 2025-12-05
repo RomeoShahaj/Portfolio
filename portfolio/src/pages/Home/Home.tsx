@@ -6,12 +6,13 @@ export default function Home() {
   id="home"
   style={{
     height: "100vh",
-    paddingTop: "2rem",
     maxWidth: "800px",
     margin: "0 auto",
     display: "flex",
     alignItems: "center",
     gap: "2rem",
+    justifyContent: "flex-start",
+    paddingBottom: "150px",
   }}
 >
   {/* Left: circular image */}

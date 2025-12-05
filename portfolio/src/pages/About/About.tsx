@@ -1,18 +1,61 @@
-// src/pages/About/About.tsx
+import aboutBg from "../../assets/images/about-bg-01.jpg";
+
 export default function About() {
   return (
-    <div className="page-content">
-      <h1 className="page-heading">About Me</h1>
+    <section
+      id="about"
+      style={{
+        position: "relative",
+        width: "100vw",         // full viewport width
+        minHeight: "100vh",
+        overflow: "hidden",
+        margin: 0,
+      }}
+    >
+      {/* Background */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundImage: `url(${aboutBg})`,
+          backgroundSize: "cover",      // zoom image
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          zIndex: -1,
+        }}
+      />
 
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
-        consectetur neque. Sed id feugiat libero. Nullam vel augue sit amet
-        massa vehicula fermentum.
-      </p>
-
-      <p>
-        You can replace this text with your biography, experience, and hobbies.
-      </p>
-    </div>
+      {/* Content */}
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          padding: "2rem",
+          color: "white",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "700px",
+            backdropFilter: "blur(6px)",
+            background: "rgba(0,0,0,0.3)",
+            padding: "2rem",
+            borderRadius: "1rem",
+          }}
+        >
+          <h1>About Me</h1>
+          <p>
+            I'm Romeo, a software developer focused on building scalable web apps,
+            clean code, and great user experiences.
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }

@@ -64,34 +64,28 @@ function App() {
   }
 
 
-  return (
-    <div style={{ display: "flex", height: "100vh" }}>
+    return (
+    <div style={{ display: "flex" }}>
       {/* Sidebar */}
-      <Sidebar 
+      <Sidebar
         collapsed={collapsed}
         isMobile={isMobile}
         mobileSidebarOpen={mobileSidebarOpen}
         activeItem={activeItem}
         onItemClick={handleClick}
-        toggleMobileSidebar={() => 
-        setMobileSidebarOpen(!mobileSidebarOpen)}
-        />
+        toggleMobileSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+      />
 
       {/* Main content */}
-      <div
-        style={{
-          flex: 1,
-          minWidth: 0,
-          overflowY: "auto",
-          position: "relative"
-        }}
-      >
+      <div style={{ flex: 1, minWidth: 0, overflowY: "auto", position: "relative" }}>
+        {/* Home and About are outside the regular Selection wrapper for full-width background */}
         <Selection id="home">
           <Home />
         </Selection>
-        <Selection id="about">
-          <About />
-        </Selection>
+
+        {/* About: full-width wrapper outside sidebar-constrained container */}
+        <About />
+
         <Selection id="skills">
           <Skills />
         </Selection>
@@ -99,11 +93,10 @@ function App() {
           <Projects />
         </Selection>
         <Selection id="contact">
-          <Contact/>
+          <Contact />
         </Selection>
-
       </div>
-      </div>
+    </div>
   );
 }
 
