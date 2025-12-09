@@ -2,9 +2,12 @@ import { useRef } from "react";
 import gsap from "gsap";
 import {useGSAP} from "@gsap/react"
 import profileImg from "../../assets/images/profile-pic.svg"
+//import profileImg from "../../assets/images/prof.jpeg"
+import "./Home.css"
+
 
 import { isValidElement } from "react"
-import type {ReactNode, ReactElement} from "react"
+import type {ReactNode} from "react"
 
 const FONT_WEIGHTS = {
   subtitle: {min:400, max:1000, default:400},
@@ -46,7 +49,7 @@ const renderText = (
 };
 
 const setupTextHover = (container, type) => {
-  if(!container) return;
+  if(!container) return () => {};
 
   const letters = container.querySelectorAll("span");
   const {min, max, default: base} = FONT_WEIGHTS[type];
@@ -103,19 +106,11 @@ export default function Home() {
   return (
     <section
   id="welcome"
-  style={{
-    height: "100vh",
-    maxWidth: "800px",
-    margin: "0 auto",
-    display: "flex",
-    alignItems: "center",
-    gap: "2rem",
-    justifyContent: "flex-start",
-    paddingBottom: "150px",
-  }}
+  className="welcome-section"
+
 >
   {/* Left: circular image */}
-  <div
+  <div className="prof-pic"
     style={{
       width: "180px",
       height: "180px",
