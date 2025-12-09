@@ -1,9 +1,108 @@
+import { useRef } from "react";
+import gsap from "gsap";
+import {useGSAP} from "@gsap/react"
 import profileImg from "../../assets/images/profile-pic.svg"
 
+import { isValidElement } from "react"
+import type {ReactNode, ReactElement} from "react"
+
+const FONT_WEIGHTS = {
+  subtitle: {min:400, max:1000, default:400},
+  title: {min:400, max:900, default:400}
+}
+
+const renderText = (
+  children: ReactNode,
+  className?: string,
+  baseWeight = 400
+): ReactNode => {
+  if (typeof children === "string") {
+    return [...children].map((char, i) => (
+      <span
+        key={i}
+        className={className}
+        style={{ fontVariationSettings: `'wght' ${baseWeight}` }}
+      >
+        {char === " " ? "\u00A0" : char}
+      </span>
+    ));
+  }
+
+  if (Array.isArray(children)) {
+    return children.map((child, i) => (
+      <span key={i}>{renderText(child, className, baseWeight)}</span>
+    ));
+  }
+
+  if (isValidElement(children)) {
+   return (
+      <children.type {...children.props}>
+        {renderText(children.props.children, className, baseWeight)}
+      </children.type>
+    );
+  }
+
+  return children;
+};
+
+const setupTextHover = (container, type) => {
+  if(!container) return;
+
+  const letters = container.querySelectorAll("span");
+  const {min, max, default: base} = FONT_WEIGHTS[type];
+
+  const animateLetter = (letter, weight, duration=0.25) => {
+    return gsap.to(letter, { 
+      duration, 
+      ease:'power2.out',
+      fontVariationSettings: `'wght' ${weight}`,
+    });
+  };
+
+  const handleMouseMove = (e) => {
+    const { left } = container.getBoundingClientRect();
+    const mouseX = e.clientX - left;
+
+    letters.forEach((letter) => {
+      const {left: l, width: w} = letter.getBoundingClientRect();
+      const distance = Math.abs(mouseX - (l - left + w / 2));
+      const intensity = Math.exp(-(distance ** 2) / 20000);
+      
+      animateLetter(letter,min + (max - min) * intensity);
+    });
+  }
+
+  const handleMouseLeave = () => 
+    letters.forEach((letter) => animateLetter(letter, base, 0.5))
+
+  container.addEventListener("mousemove", handleMouseMove);
+  container.addEventListener("mouseleave", handleMouseLeave);
+
+  return () => {
+    container.removeEventListener("mousemove", handleMouseMove);
+    container.removeEventListener("mouseleave", handleMouseLeave);
+  };
+
+};
+
+
 export default function Home() {
+  const titleRef = useRef(null);
+  const subtleRef = useRef(null);
+
+  useGSAP(() => {
+    const titleCleanup = setupTextHover(titleRef.current, "title");
+    const subtitleCleaup = setupTextHover(subtleRef.current, "subtitle");
+
+    return () => {
+      subtitleCleaup();
+      titleCleanup();
+    }
+  }, []);
+
   return (
     <section
-  id="home"
+  id="welcome"
   style={{
     height: "100vh",
     maxWidth: "800px",
@@ -28,26 +127,38 @@ export default function Home() {
   >
     <img
       src={profileImg}
-      alt="Portrait of Romeo Shahaj"
+      alt="Portrait"
       style={{ width: "100%", height: "100%", objectFit: "cover" }}
     />
   </div>
 
   {/* Right: text */}
   <div style={{ textAlign: "left" }}>
-    <h1>
-      Hello, i'm
-      <br />
-      <span style={{ color: "#7132CA", fontWeight: "bold" }}>Romeo</span> Shahaj
+    <h1 ref={titleRef}>
+      {renderText(
+        <>
+          Hello, i'm
+          <br />
+          <span style={{ color: "#7132CA"  }}>Romeo</span> Shahaj
+        </>,
+        "h1",
+        400
+      )}
     </h1>
-    <p>
-      I am a{" "}
-      <span style={{ color: "#7132CA", fontWeight: "bold" }}>
-        Software Developer
-      </span>{" "}
-      passionate about building scalable web apps, databases & end-to-end
-      solutions.
-    </p>
+
+  <p>
+  I am a{" "}
+  <span
+    ref={subtleRef} // only this span gets the effect
+    style={{ color: "#7132CA", fontWeight: "bold" }}
+  >
+    {renderText("Software Developer")}
+  </span>{" "}
+  passionate about building scalable web apps, databases & end-to-end
+  solutions.
+</p>
+
+
   </div>
 </section>
 

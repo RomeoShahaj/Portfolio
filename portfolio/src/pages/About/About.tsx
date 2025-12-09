@@ -20,7 +20,7 @@ export default function About() {
     left: 0,
     width: "100%",
     height: "100%",
-    background: "linear-gradient(to bottom, #7132CA 0%, rgba(79, 0, 128, 0) 100%)",
+    background: "linear-gradient(to bottom, #7132CA 100%, rgba(79, 0, 128, 0) 0%)",
     zIndex: -1,
   }}
 />
