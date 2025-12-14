@@ -81,18 +81,13 @@ function App() {
         <Selection id="home">
           <Home />
         </Selection>
-
         <About />
-
         <Selection id="skills">
           <Skills />
         </Selection>
-        
         <Projects />
+        <Contact />
         
-        <Selection id="contact">
-          <Contact />
-        </Selection>
       </div>
     </div>
   );

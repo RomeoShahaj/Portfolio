@@ -13,12 +13,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 600px;
+  max-width: 700px;
   margin: 40px auto;
+  padding: 60px;
+}
+
+.carousel-window {
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
 }
 
 .carousel-slide {
-  width: 100%;
+  min-width: 100%;
   text-align: center;
 }
 
@@ -26,7 +37,8 @@
   width: 100%;
   max-height: 300px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 12px;
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
 .nav {
@@ -38,6 +50,7 @@
   top: 50%;
   transform: translateY(-50%);
   color: #7132CA;
+  z-index: 2;
 }
 
 .nav.left {
@@ -49,7 +62,8 @@
 }
 
 .carousel-dots {
-  margin-top: 15px;
+  text-align: center;
+  padding-bottom: 40px;
 }
 
 .dot {
@@ -58,7 +72,7 @@
   margin: 0 5px;
   display: inline-block;
   border-radius: 50%;
-  background-color: #bbb;
+  background-color: #5c3d89;
   cursor: pointer;
   transition: background-color 0.3s;
 }

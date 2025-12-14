@@ -1,5 +1,8 @@
+import "./Contact.css"
+
 export default function Contact() {
   return (
+    <section className="contact" >
     <div className="page-content">
       <h1 className="page-heading">Contact</h1>
 
@@ -13,5 +16,6 @@ export default function Contact() {
         You can replace this text with your biography, experience, and hobbies.
       </p>
     </div>
+    </section>
   );
 }

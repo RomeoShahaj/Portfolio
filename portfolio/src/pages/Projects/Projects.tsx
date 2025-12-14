@@ -41,15 +41,21 @@ export default function Projects() {
             &#10094;
           </button>
 
-          <div className="carousel-slide">
-            <img
-              src={projectData[currentIndex].imageUrl}
-              alt={projectData[currentIndex].title}
-            />
-            <h2>{projectData[currentIndex].title}</h2>
-            <p>{projectData[currentIndex].description}</p>
+          <div className="carousel-window">
+            <div className="carousel-track" style={{
+              transform: `translateX(-${currentIndex * 100}%)`,
+            }}
+            >
+              {projectData.map((project, index) => (
+                <div className="carousel-slide" key={index}>
+                  <img src={project.imageUrl} alt={project.title} />
+                  <h2>{project.title}</h2>
+                  <p>{project.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
-
+         
           <button className="nav right" onClick={nextSlide}>
             &#10095;
           </button>

@@ -1,0 +1,13 @@
+.contact {
+    min-height: 10vw;
+    display: flex;
+    padding-bottom: 600px;
+    padding-top: 100px;
+    width: 100%;
+}
+
+.contact .page-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}

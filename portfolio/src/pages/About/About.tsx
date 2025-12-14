@@ -81,7 +81,7 @@ useEffect(() => {
                   <div className="timeline_right">
                     <div className="margin-bottom-xlarge">
                       <div className="timeline_text">
-                        Entered University of West attica in the department of
+                        Entered University of West Attica in the department of
                         Informatics and Computer Engineering.
                       </div>
                     </div>
@@ -99,7 +99,7 @@ useEffect(() => {
                       <div className="margin-bottom-xlarge">
                         <div className="timeline_text">
                           Joined Qubiteq as a Junior Full-Stack Developer, 
-                          working on projects using .NET Core, React, and SQL Server.
+                          working on projects using .NET Core, Javascript, and SQL Server.
                         </div>
                       </div>
                       
