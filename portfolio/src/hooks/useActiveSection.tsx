@@ -1,8 +1,19 @@
-import { useEffect, useState } from "react";
 
-export default function useActiveSection (selectionIds: string[], threshold = 0.5) {
+import { useEffect, useState, useCallback } from "react";
+
+
+export default function useActiveSection (selectionIds: string[], threshold: number = 0.2) { 
 
   const [active, setActive] = useState(selectionIds[0]);
+  
+  const [manualOverrideId, setManualOverrideId] = useState<string | null>(null);
+
+  const handleScrollUpdate = useCallback((id: string) => {
+   
+    if (!manualOverrideId) {
+      setActive(id);
+    }
+  }, [manualOverrideId]);
 
   useEffect(() => {
     const observers: IntersectionObserver[] =[];
@@ -14,19 +25,22 @@ export default function useActiveSection (selectionIds: string[], threshold = 0.
       const observer = new IntersectionObserver(
         (entries) => {
           if (entries[0].isIntersecting) {
-            setActive(id);
+            handleScrollUpdate(id); 
           }
         },{
-          threshold: 0.5,
+         
+          threshold: threshold, 
         }
       );
       observer.observe(target);
       observers.push(observer);
     });
+    
     return() => {
       observers.forEach((obs) => obs.disconnect());
     };
-  }, [selectionIds, threshold]);
+    
+  }, [selectionIds, threshold, handleScrollUpdate]); 
 
-  return active;
+  return [active, setActive, setManualOverrideId] as const;
 }

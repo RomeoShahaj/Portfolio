@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from "react";
-import useActiveSection from "./hooks/useActiveSection";
+import useActiveSection from "./hooks/useActiveSection"; 
 import Sidebar from "./components/Sidebar/Sidebar";
 import Selection from "./components/Section/Section";
 import { Home, About, Skills, Projects, Contact} from "./pages"
@@ -9,10 +10,11 @@ function App() {
   const [collapsed, setCollapsed] = useState(false); // desktop collapse
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const activeItem = useActiveSection(["home","about","skills","projects","contact"])
-
   
-  // Detect screen size
+  const [activeItem, setActiveItem, setManualOverrideId] = useActiveSection(
+    ["home","about","skills","projects","contact"]
+  ); 
+  
   useEffect(() => {
     const update = () => {
       const mobile = window.innerWidth < 768;
@@ -28,9 +30,8 @@ function App() {
   }, []);
 
 
-  // Desktop only: auto collapse when scroll passes home
   useEffect(() => {
-    if (isMobile) return; // skip for mobile
+    if (isMobile) return; 
 
     const homeSection = document.getElementById("home");
     if (!homeSection) return;
@@ -40,7 +41,7 @@ function App() {
         const isVisible = entries[0].isIntersecting;
         setCollapsed(!isVisible);
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
 
     observer.observe(homeSection);
@@ -52,7 +53,12 @@ function App() {
       behavior: "smooth",
     });
 
-    // Mobile: close menu after click
+    setManualOverrideId(id);
+    setTimeout(() => {
+        setManualOverrideId(null); 
+    }, 800); 
+
+    
     if (isMobile) {
       setMobileSidebarOpen(false);
     }
@@ -60,6 +66,8 @@ function App() {
 
   const handleClick = (id: string) => {
     scrollToSection(id);
+    
+    setActiveItem(id); 
     if (isMobile) setMobileSidebarOpen(false);
   }
 
@@ -93,9 +101,6 @@ function App() {
         <Selection id="contact">
           <Contact />
         </Selection>
-
-       
-        
       </div>
     </div>
   );

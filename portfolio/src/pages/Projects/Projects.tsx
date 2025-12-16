@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Projects.css"
 import kep from "../../assets/images/projects/tab.jpeg"
-import stockFinder from "../../assets/images/projects/fint.jpeg"
+import stockFinder from "../../assets/images/projects/fint.png"
 import waveSVG from "../../assets/images/projects/layered-waves-haikei.svg";
 import waveSVGbot from "../../assets/images/projects/layered-waves-haikei-1.svg";
 

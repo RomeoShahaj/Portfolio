@@ -20,10 +20,9 @@
   display: block;
   width: 100%;
   height: auto;       /* maintain aspect ratio */
-  margin-top: -5px;   /* move slightly up to hide gap */
   position: relative; /* optional */
   z-index: 0;         /* behind content */
-  margin-bottom: -30px;
+  margin-bottom: -90px;
 }
 @media (min-width: 1800px) {
   .wave-transition-bot {

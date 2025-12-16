@@ -3,6 +3,7 @@ import gsap from "gsap";
 import {useGSAP} from "@gsap/react"
 //import profileImg from "../../assets/images/profile-pic.svg"
 import profileImg from "../../assets/images/prof.jpeg"
+import cvFile from "../../assets/files/CV_Romeo_Shahaj_01.pdf"
 import "./Home.css"
 
 
@@ -149,10 +150,17 @@ export default function Home() {
   >
     {renderText("Software Developer")}
   </span>{" "}
-  passionate about building scalable web apps, databases & end-to-end
+  passionate about building scalable <br/> web apps, databases & end-to-end
   solutions.
 </p>
-
+<a 
+  href={cvFile} 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="cv-button" // Apply custom styling here
+  >
+    CV
+  </a>
 
   </div>
 </section>

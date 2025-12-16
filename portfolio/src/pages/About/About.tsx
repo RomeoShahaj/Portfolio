@@ -132,10 +132,9 @@ useEffect(() => {
               <div className="timeline_right">
                     <div className="margin-bottom-xlarge">
                       <div className="timeline_text">
-                       I really appreciated my time at Qubiteq and learned a lot, 
-                       but after reaching a natural stopping point in my development,
-                       I accepted an exchange program in Portugal to continue growing. 
-                      </div>
+                      I participated in an Erasmus exchange semester in Coimbra, Portugal, 
+                      gaining academic experience while immersing myself in a new culture 
+                       and way of life.                      </div>
                     </div>
                     
                 </div>
@@ -170,7 +169,7 @@ useEffect(() => {
               <div className="timeline_right">
                     <div className="margin-bottom-xlarge">
                       <div className="timeline_text">
-                        successfully completed my thesis and graduated, 
+                        Successfully completed my thesis and graduated, 
                         I’m now ready to take the next step by pursuing 
                         career opportunities in my field.
                       </div>
@@ -195,7 +194,7 @@ useEffect(() => {
             I am a 24 year old aspiring full-stack developer, currently based in Athens,
             Greece. I have always been curious and fascinated by puzzles, which led me to
             the path of studying software engineering. I graduated in October 2025, while studying i
-            worked as a junior developer for 1.5 years at Qubiteq.
+            gained professional experience working in a software company in Athens.
             I am currently looking to continue my professional journey in Norway, and hope
             to be a valuable asset to future employers.
           </p>

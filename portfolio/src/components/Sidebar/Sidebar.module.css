@@ -3,7 +3,7 @@
     flex-shrink: 0;
     top: 0;
     height: 100vh;
-    background: #7132CA;
+    background: #542497;
     overflow: hidden;
     transition: width 0.4s ease, padding 0.4s ease, transform 0.3s ease;
     display: flex;
@@ -47,7 +47,7 @@
 /* sliding purple panel */
 .sidebar.mobile .panel {
   height: 100%;
-  background: #7132CA;
+  background: #542497;
   transform: translateX(100%);      /* hidden to the right */
   transition: transform 0.3s ease;
   z-index: 10000;
@@ -110,7 +110,7 @@
 .hamburger {
   position: fixed;         /* fixed to viewport */
   top: 1rem;
-  left: calc(var(--sidebar-width) - 40px); /* follow sidebar width */
+  right: 1rem;
   width: 40px;
   height: 40px;
   border: none;
