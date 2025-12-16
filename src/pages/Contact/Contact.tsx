@@ -45,7 +45,7 @@ const blob1Ref = useRef<SVGPathElement>(null);
           </a>
 
           <a
-            href="https://github.com/DeepBlueIBR"
+            href="https://github.com/RomeoShahaj"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
