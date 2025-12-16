@@ -1,0 +1,149 @@
+.sidebar {
+    position: relative;
+    flex-shrink: 0;
+    top: 0;
+    height: 100vh;
+    background: #542497;
+    overflow: hidden;
+    transition: width 0.4s ease, padding 0.4s ease, transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+    z-index: 9998;
+    padding: 0;
+}
+
+.title {
+    color: white;
+    cursor: default;
+    line-height: 4rem;
+    height: 4rem;
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    text-align: center;
+}
+.titleHidden {
+    visibility: hidden;
+}
+
+.sidebar.desktop {
+    position: fixed;
+    right: 0;
+    left: auto;
+}
+
+.sidebar.mobile {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  border-left: none;
+  transform: translateX(100%);   /* fully off-screen to the right */
+  transition: transform 0.3s ease;
+}
+
+/* sliding purple panel */
+.sidebar.mobile .panel {
+  height: 100%;
+  background: #542497;
+  transform: translateX(100%);      /* hidden to the right */
+  transition: transform 0.3s ease;
+  z-index: 10000;
+}
+
+.sidebar.mobile.open .panel {
+  transform: translateX(0);         /* slide in */
+}
+
+
+.sidebar.desktop.collapsed {
+    width: 90px;
+    padding: 0rem;
+}
+
+.sidebar.desktop.expanded {
+    width: 300px;
+    padding: 0rem;
+}
+
+.sidebar.mobile.open {
+    transform: translateX(0);
+}
+
+.content {
+    padding: 0;
+}
+
+.sidebarMenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.sidebarMenu li {
+    cursor: pointer;
+  line-height: 2rem;
+  padding: 1rem 1rem;   /* inner text padding only */
+  color: white;
+  display: block;
+  width: 100%;             /* fill full sidebar width */
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+.sidebarMenu li:hover {
+  background: rgba(255, 255, 255, 0.25); 
+  color: #ffffff;
+}
+
+.sidebarMenu li.active {
+  background: white;
+  color: #5b0ee6;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* default for mobile */
+.hamburger {
+  position: fixed;         /* fixed to viewport */
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10001;
+  transition: left 0.3s ease;  /* smooth movement when sidebar collapses */
+}
+
+
+
+.hamburgerIcon {
+  width: 24px;
+  height: 24px;
+  color: #ffffff;
+}
+
+
+/* Optional: only show on mobile */
+@media (min-width: 768px) {
+  .hamburger {
+    z-index: 100000;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .sidebarMenu li {
+    line-height: 3rem;
+    font-size: 1.5rem;
+  }
+}

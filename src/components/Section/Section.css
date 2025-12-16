@@ -1,0 +1,12 @@
+
+.page-section {
+       /* full viewport height */
+     /* optional spacing for header */
+  width: 100%;          /* ensure full width */
+  display: flex;
+  padding: 0;
+  justify-content: center; /* centers content vertically */
+  align-items: center;      /* optional, horizontal centering */
+  overflow: hidden;
+  
+}
