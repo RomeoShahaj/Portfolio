@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Projects.css"
 import kep from "../../assets/images/projects/tab.webp"
 import stockFinder from "../../assets/images/projects/fint.webp"
+import tyraki from "../../assets/images/projects/tyraki.png"
 import waveSVG from "../../assets/images/projects/layered-waves-haikei.svg";
 import waveSVGbot from "../../assets/images/projects/layered-waves-haikei-1.svg";
 
@@ -17,6 +18,12 @@ const projectData = [
     title: "Stock Portfolio",
     description: "A personal stock portfolio tracking application built using .NET and React. A live demo will be available soon.",
     imageUrl: stockFinder,
+  },
+  {
+    title: "Tyraki",
+    description: "A small Saas web app that analyses bank statement for forgotten subscriptions, build without a framework, with the goal of learning stripe integrations, will be refactor using Next.js",
+    imageUrl: tyraki,
+    link: "https://tyraki.vercel.app/",
   }
 ]
 
@@ -55,7 +62,25 @@ export default function Projects() {
             >
               {projectData.map((project, index) => (
                 <div className="carousel-slide" key={index}>
-                  <img src={project.imageUrl} alt={project.title} loading="lazy" />
+                  {project.link ? (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src={project.imageUrl}
+                        alt={project.title}
+                        loading="lazy"
+                      />
+                    </a>
+                  ) : (
+                    <img
+                      src={project.imageUrl}
+                      alt={project.title}
+                      loading="lazy"
+                    />
+                  )}
                   <h2>{project.title}</h2>
                   <p>{project.description}</p>
                 </div>
