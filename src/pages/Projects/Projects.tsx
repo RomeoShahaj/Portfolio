@@ -9,19 +9,21 @@ import waveSVGbot from "../../assets/images/projects/layered-waves-haikei-1.svg"
 
 
 const projectData = [
+  
+  {
+    title: "Stock Portfolio",
+    description: "A personal stock portfolio tracking application built using .NET and React and PostgreSQL. A live demo is available.",
+    imageUrl: stockFinder,
+    link: "https://stocksfinder.vercel.app/"
+  },
   {
     title: "E-queuing solution",
     description: "Designed and implemented an electronic queue management system using Python Flask and React.js. Collaborated with another software engineer to develop both the frontend and backend for the government program 'Modernization of Civil Service Centers' on the island of Ithaca. We had full autonomy in selecting and implementing the technology stack and explored methods for communicating with a thermal printer. This project enhanced my ability to plan and execute a full-cycle software solution in a high-responsibility environment.",
     imageUrl: kep,
   },
   {
-    title: "Stock Portfolio",
-    description: "A personal stock portfolio tracking application built using .NET and React. A live demo will be available soon.",
-    imageUrl: stockFinder,
-  },
-  {
     title: "Tyraki",
-    description: "A small Saas web app that analyses bank statement for forgotten subscriptions, build without a framework, with the goal of learning stripe integrations, will be refactor using Next.js",
+    description: "A small SaaS web app that analyses bank statement for forgotten subscriptions, build without a framework, with the goal of learning stripe integrations, will be refactor using Next.js",
     imageUrl: tyraki,
     link: "https://tyraki.vercel.app/",
   }

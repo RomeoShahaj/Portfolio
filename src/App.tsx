@@ -1,28 +1,14 @@
-import { useState, useEffect, Suspense, lazy } from "react";
+import { useState, useEffect } from "react";
 import useActiveSection from "./hooks/useActiveSection";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Selection from "./components/Section/Section";
 import { debounce } from "./utils/debounce";
+import Home from "./pages/Home/Home";
+import About from "./pages/About/About";
+import Skills from "./pages/Skills/Skills";
+import Projects from "./pages/Projects/Projects";
+import Contact from "./pages/Contact/Contact";
 import "./App.css";
-
-// Lazy load page components for better performance
-const Home = lazy(() => import("./pages/Home/Home"));
-const About = lazy(() => import("./pages/About/About"));
-const Skills = lazy(() => import("./pages/Skills/Skills"));
-const Projects = lazy(() => import("./pages/Projects/Projects"));
-const Contact = lazy(() => import("./pages/Contact/Contact"));
-
-// Loading fallback component
-const SectionLoader = () => (
-  <div style={{
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }}>
-    <div className="loading-spinner" />
-  </div>
-);
 
 function App() {
   const [collapsed, setCollapsed] = useState(false); // desktop collapse
@@ -112,29 +98,20 @@ function App() {
       {/* Main content */}
       <div style={{ flex: 1, minWidth: 0, overflowY: "auto", position: "relative" }}>
         <Selection id="home">
-          <Suspense fallback={<SectionLoader />}>
-            <Home />
-          </Suspense>
-        </Selection>
-        <Selection id="about">
-          <Suspense fallback={<SectionLoader />}>
-            <About />
-          </Suspense>
-        </Selection>
-        <Selection id="skills">
-          <Suspense fallback={<SectionLoader />}>
-            <Skills />
-          </Suspense>
+          <Home />
         </Selection>
         <Selection id="projects">
-          <Suspense fallback={<SectionLoader />}>
-            <Projects />
-          </Suspense>
+          <Projects />
         </Selection>
+        <Selection id="skills">
+          <Skills />
+        </Selection>
+        <Selection id="about">
+          <About />
+        </Selection>
+        
         <Selection id="contact">
-          <Suspense fallback={<SectionLoader />}>
-            <Contact />
-          </Suspense>
+          <Contact />
         </Selection>
       </div>
     </div>
