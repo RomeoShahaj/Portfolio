@@ -22,7 +22,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
     const contentRef = useRef<HTMLDivElement | null>(null);
     //const [contentWidth, setContentWidth] = useState(0) 
-    const menuItems = ["home", "about", "skills", "projects", "contact"];
+    const menuItems = ["home", "projects", "skills", "about", "contact"];
 
     return (
         <>
