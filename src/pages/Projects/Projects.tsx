@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./Projects.css"
 import kep from "../../assets/images/projects/tab.webp"
 import stockFinder from "../../assets/images/projects/fint.webp"
@@ -23,26 +23,117 @@ const projectData = [
   },
   {
     title: "Tyraki",
-    description: "A small SaaS web app that analyses bank statement for forgotten subscriptions, build without a framework, with the goal of learning stripe integrations, will be refactor using Next.js",
+    description: "A small SaaS web app that analyses bank statement for forgotten subscriptions, build without a framework, with the goal of learning stripe integrations, will be refactor using React.js",
     imageUrl: tyraki,
     link: "https://tyraki.vercel.app/",
   }
 ]
 
+// Extended slides: [clone of last, ...real slides, clone of first]
+// trackIndex 0 = clone of last, 1..N = real slides, N+1 = clone of first
+const extendedSlides = [
+  projectData[projectData.length - 1],
+  ...projectData,
+  projectData[0],
+];
+
 export default function Projects() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const slideCount = projectData.length;
+  const [trackIndex, setTrackIndex] = useState(1); // 1 = first real slide
+  const dragStartX = useRef(0);
+  const dragOffset = useRef(0);
+  const isDragging = useRef(false);
+  const wasDragged = useRef(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const isSnapping = useRef(false);
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => 
-      prev === 0 ? projectData.length - 1: prev - 1
-    );
-  }
+  // Real index for dots (0-based into projectData)
+  const realIndex =
+    trackIndex === 0 ? slideCount - 1
+    : trackIndex === slideCount + 1 ? 0
+    : trackIndex - 1;
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => 
-      prev === projectData.length - 1 ? 0 : prev + 1
-    );
-  }
+  const goTo = (idx: number) => {
+    if (isSnapping.current) return;
+    setTrackIndex(idx);
+  };
+
+  const prevSlide = () => goTo(trackIndex - 1);
+  const nextSlide = () => goTo(trackIndex + 1);
+
+  const handleTransitionEnd = () => {
+    if (trackIndex === 0) {
+      isSnapping.current = true;
+      if (trackRef.current) trackRef.current.style.transition = "none";
+      setTrackIndex(slideCount);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (trackRef.current) trackRef.current.style.transition = "";
+          isSnapping.current = false;
+        });
+      });
+    } else if (trackIndex === slideCount + 1) {
+      isSnapping.current = true;
+      if (trackRef.current) trackRef.current.style.transition = "none";
+      setTrackIndex(1);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (trackRef.current) trackRef.current.style.transition = "";
+          isSnapping.current = false;
+        });
+      });
+    }
+  };
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (isSnapping.current) return;
+    isDragging.current = true;
+    wasDragged.current = false;
+    dragStartX.current = e.clientX;
+    dragOffset.current = 0;
+    if (trackRef.current) {
+      trackRef.current.style.transition = "none";
+    }
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!isDragging.current) return;
+    dragOffset.current = e.clientX - dragStartX.current;
+    if (Math.abs(dragOffset.current) > 5) {
+      wasDragged.current = true;
+    }
+    if (trackRef.current) {
+      const base = -(trackIndex * 100);
+      const container = trackRef.current.parentElement!;
+      const pxToPercent = (dragOffset.current / container.clientWidth) * 100;
+      trackRef.current.style.transform = `translateX(${base + pxToPercent}%)`;
+    }
+  };
+
+  const onPointerUp = () => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    if (trackRef.current) {
+      trackRef.current.style.transition = "";
+    }
+    const threshold = 50;
+    if (dragOffset.current < -threshold) {
+      nextSlide();
+    } else if (dragOffset.current > threshold) {
+      prevSlide();
+    } else if (trackRef.current) {
+      trackRef.current.style.transform = `translateX(-${trackIndex * 100}%)`;
+    }
+    dragOffset.current = 0;
+  };
+
+  const onClickCapture = (e: React.MouseEvent) => {
+    if (wasDragged.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      wasDragged.current = false;
+    }
+  };
 
   return (
     <section id="projects" className="projects-section">
@@ -57,23 +148,37 @@ export default function Projects() {
             &#10094;
           </button>
 
-          <div className="carousel-window">
-            <div className="carousel-track" style={{
-              transform: `translateX(-${currentIndex * 100}%)`,
-            }}
+          <div
+            className="carousel-window"
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerLeave={onPointerUp}
+            onPointerCancel={onPointerUp}
+            onClickCapture={onClickCapture}
+          >
+            <div
+              className="carousel-track"
+              ref={trackRef}
+              style={{
+                transform: `translateX(-${trackIndex * 100}%)`,
+              }}
+              onTransitionEnd={handleTransitionEnd}
             >
-              {projectData.map((project, index) => (
+              {extendedSlides.map((project, index) => (
                 <div className="carousel-slide" key={index}>
                   {project.link ? (
                     <a
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      draggable={false}
                     >
                       <img
                         src={project.imageUrl}
                         alt={project.title}
                         loading="lazy"
+                        draggable={false}
                       />
                     </a>
                   ) : (
@@ -81,6 +186,7 @@ export default function Projects() {
                       src={project.imageUrl}
                       alt={project.title}
                       loading="lazy"
+                      draggable={false}
                     />
                   )}
                   <h2>{project.title}</h2>
@@ -89,7 +195,7 @@ export default function Projects() {
               ))}
             </div>
           </div>
-         
+
           <button className="nav right" onClick={nextSlide}>
             &#10095;
           </button>
@@ -99,13 +205,13 @@ export default function Projects() {
           {projectData.map((_, index) => (
             <span
               key={index}
-              className={`dot ${index === currentIndex ? "active" : ""}`}
-              onClick={() => setCurrentIndex(index)}
+              className={`dot ${index === realIndex ? "active" : ""}`}
+              onClick={() => setTrackIndex(index + 1)}
             ></span>
           ))}
         </div>
       </div>
-     
+
     <div className="wave-wrapper-bot">
       <img src={waveSVGbot} alt="wave" className="wave-transition-bot" />
     </div>

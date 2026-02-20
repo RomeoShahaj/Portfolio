@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react"
 import profileImg from "../../assets/images/prof.webp"
@@ -107,8 +107,9 @@ const setupTextHover = (container: HTMLElement | null, type: FontType) => {
 
 
 export default function Home() {
-  const titleRef = useRef<HTMLHeadingElement>(null); 
-  const subtleRef = useRef<HTMLSpanElement>(null); 
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtleRef = useRef<HTMLSpanElement>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useGSAP(() => {
     const titleCleanup = setupTextHover(titleRef.current, "title");
@@ -140,6 +141,8 @@ export default function Home() {
         <img
           src={profileImg}
           alt="Portrait"
+          className={imageLoaded ? "loaded" : ""}
+          onLoad={() => setImageLoaded(true)}
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       </div>
