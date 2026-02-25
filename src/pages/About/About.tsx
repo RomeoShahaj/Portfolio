@@ -44,9 +44,10 @@ useEffect(() => {
       id="about"
       style={{
         position: "relative",
-        width: "100vw",
+        width: "100%",
         minHeight: "100vh",
         margin: 0,
+        overflowX: "hidden",
       }}
     >
       {/* Background */}

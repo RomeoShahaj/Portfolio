@@ -96,7 +96,7 @@ function App() {
       />
 
       {/* Main content */}
-      <div style={{ flex: 1, minWidth: 0, overflowY: "auto", position: "relative" }}>
+      <div style={{ flex: 1, minWidth: 0, overflowX: "hidden", overflowY: "auto", position: "relative" }}>
         <Selection id="home">
           <Home />
         </Selection>

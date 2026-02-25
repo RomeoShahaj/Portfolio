@@ -1,6 +1,6 @@
 .projects-section {
   position: relative;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   padding-top: 20px;
   background: linear-gradient(to bottom, #402466 100%, rgba(79, 0, 128, 0) 0%);
