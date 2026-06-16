@@ -60,8 +60,14 @@ function App() {
   }, [isMobile]);
 
   const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({
+    const section = document.getElementById(id);
+    // Scroll to the section's title when it has one (Projects/Skills/Contact),
+    // so decorative top content (e.g. the Projects wave) doesn't push the
+    // heading below the fold. Otherwise fall back to the section top.
+    const heading = section?.querySelector<HTMLElement>(".page-heading");
+    (heading ?? section)?.scrollIntoView({
       behavior: "smooth",
+      block: "start",
     });
 
     setManualOverrideId(id);

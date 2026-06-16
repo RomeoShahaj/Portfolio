@@ -17,3 +17,8 @@ body {
   height: 100vh;
 }
 
+/* Breathing room above a section title when navigated to via the sidebar */
+.page-heading {
+  scroll-margin-top: 24px;
+}
+
